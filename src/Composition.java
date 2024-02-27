@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 class File {
     private String name;
 
@@ -21,8 +21,31 @@ class File {
     public void print() {
         System.out.println("File: " + name);
     }
+}*/
+
+class File {
+    private String name;
+
+    public File(String name) {
+        this.name = name;
+    }
+
+    // Accessors
+    public String getName(){
+        return name;
+    }
+
+    // Mutators
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toString(){
+        return "File{" + "name='" + name + '\'' + '}';
+    }
 }
 
+/*
 class Folder {
     private String name;
     private List<File> files;
@@ -83,10 +106,71 @@ class Folder {
             subFolder.print();
         }
     }
+}*/
+
+class Folder{
+    private String name;
+    private ArrayList<File> files;
+    private ArrayList<Folder> subfolders;
+
+    public Folder(){
+        this.subfolders = new ArrayList<Folder>();
+        this.files = new ArrayList<File>();
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void removeSubfolder(String subfolderName){
+        for (Folder subfolder : subfolders){
+            if (subfolderName == subfolder.getName()){
+                this.subfolders.remove(subfolder);
+                break;
+            }
+        }
+    }
+
+    public void addSubfolder(String subfolderName){
+        Folder subfolder = new Folder();
+        subfolder.setName(subfolderName);
+        subfolders.add(subfolder);
+    }
+
+    public Folder getSubfolder(String subfolderName){
+        for (Folder subfolder : subfolders){
+            if(subfolderName == subfolder.getName())
+                return subfolder;
+        }
+            return new Folder();
+    }
+
+    public boolean removeFile(File file){
+        return this.files.remove(file);
+    }
+
+    public void addFile(String fileName){
+        File file = new File(fileName);
+        files.add(file);
+    }
+
+    public String toString(){
+        return "Folder{name='" + name + '\'' + ",subfolders=" + subfolders.toString() +
+                ", files=" + files.toString() + "}" ;
+    }
+
+    public void printFolderContents(){
+        System.out.println(this.toString());
+    }
 }
 
 public class Composition {
     public static void main(String[] args) {
+        /*
         Folder phpDemo1 = new Folder("php_demo1");
         Folder sourceFiles = new Folder("Source Files");
         Folder phalcon = new Folder(".phalcon");
@@ -140,5 +224,43 @@ public class Composition {
         System.out.println("\nAfter deleting 'public' folder:");
         sourceFiles.removeSubFolder(publicFolder);
         phpDemo1.print();
+         */
+
+        Folder phpDemo1 = new Folder();
+
+        phpDemo1.setName("php_demo1");
+        phpDemo1.addSubfolder("Source Files");
+        phpDemo1.addSubfolder("Include Path");
+        phpDemo1.addSubfolder("Remove Files");
+
+        //Folder = "Source Files"
+        phpDemo1.getSubfolder("Source Files").addSubfolder(".phalcon");
+        phpDemo1.getSubfolder("Source Files").addSubfolder("app");
+        phpDemo1.getSubfolder("Source Files").addSubfolder("cache");
+        phpDemo1.getSubfolder("Source Files").addSubfolder("public");
+
+        //Folder = "app"
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("config");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("controllers");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("library");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("migration");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("models");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("app").addSubfolder("views");
+
+        //Folder = "public"
+        phpDemo1.getSubfolder("Source Files").getSubfolder("public").addFile(".htaccess");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("public").addFile(".htrouter.php");
+        phpDemo1.getSubfolder("Source Files").getSubfolder("public").addFile("index.html");
+
+        System.out.println("Complete File System");
+        phpDemo1.printFolderContents();
+
+        System.out.println("After app Folder removal");
+        phpDemo1.getSubfolder("Source Files").removeSubfolder("app");
+        phpDemo1.printFolderContents();
+
+        System.out.println("After app Folder removal");
+        phpDemo1.getSubfolder("Source Files").removeSubfolder("app");
+        phpDemo1.printFolderContents();
     }
 }

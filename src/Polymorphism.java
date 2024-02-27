@@ -60,13 +60,11 @@ class CargoShip extends Ship{
     }
 
     // Accessors
-
     public int getCapacity() {
         return capacity;
     }
 
     // Mutators
-
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
