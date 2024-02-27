@@ -1,0 +1,25 @@
+@startuml
+object "ships: Ship" as  ss{
+}
+
+object "ships[0]: Ship" as ss0 {
+  shipName = "El Capitan"
+  year built = "2005"
+}
+
+object "ships[1] : CruiseShip" as sc1 {
+  shipName = "Titanic"
+  yearBuilt = "1911"
+  maxNumberPassengers = 3547
+}
+
+object "ships[2] : CargoShip" as sc2 {
+  shipName = "The Bronco"
+  yearBuilt = "2024"
+  cargoCapacityInTonnage = 37700
+}
+
+ss -- ss0
+ss <|-- sc1
+ss <|-- sc2
+@enduml

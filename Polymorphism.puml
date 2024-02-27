@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Ship{
+#ship: String
+#built: String
++Ship(ship: String, built: String)
++getShip(): String
++getBuilt(): String
++setShip(ship: String): void
++setBuilt(built: String): void
++print(): void
+}
+
+class CruiseShip{
+-maxPassengers: int
++CruiseShip(ship: String, built: String, maxPassengers: int)
++getMaxPassengers(): int
++setMaxPassengers(maxPassengers: int): void
++print(): void
+}
+
+class CargoShip{
+-capacity: int
++CargoShip(ship: String, built: String, capacity: int)
++getCapacity(): int
++setCapacity(capacity: int): void
++print(): void
+}
+
+Ship <|-- CruiseShip
+Ship <|-- CargoShip
+@enduml

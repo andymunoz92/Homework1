@@ -1,0 +1,20 @@
+@startuml
+object "instructor: Instructor" as  ii{
+firstName = "Nime"
+lastName = "Davarphana"
+officeNumber = "4-5678"
+}
+
+object "textBook: TextBook" as  tt{
+title = "Clean Code"
+author = "Robert C. Martin"
+publisher = "Prentice Hall"
+}
+
+object "course: Course" as  cc{
+name = "Software Engineering"
+}
+
+cc o-- ii
+cc o-- tt
+@enduml
